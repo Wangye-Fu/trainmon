@@ -1,0 +1,21 @@
+__pycache__/
+*.pyc
+*.pyo
+build/
+dist/
+*.egg-info/
+logs/
+*.out
+.DS_Store
+
+# Local configuration / secrets (never commit)
+trainmon.ini
+config.ini
+*.local.ini
+.env
+.env.*
+
+# Virtualenvs
+.venv/
+venv/
+env/

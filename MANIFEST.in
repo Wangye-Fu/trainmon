@@ -1,0 +1,17 @@
+include README.md
+include LICENSE
+include config.example.ini
+recursive-include trainmon/web *
+recursive-include demo *
+recursive-include scripts *
+recursive-include tests *
+
+exclude trainmon.ini
+exclude config.ini
+exclude *.local.ini
+exclude .env
+global-exclude *.pyc
+global-exclude *.pyo
+global-exclude __pycache__/*
+prune build
+prune dist

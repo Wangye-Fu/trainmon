@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TrainMon</title>
+  <link rel="stylesheet" href="/static/style.css?v=20261109">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">TM</span>
+      <div>
+        <h1>TrainMon</h1>
+        <p>训练监控 · 进度 · ETA · 完成提醒</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <span id="conn" class="conn"><i class="dot"></i><span id="connText">连接中</span></span>
+      <button id="alertsBtn" class="btn ghost" type="button">启用提醒</button>
+      <button id="stopAgentBtn" class="btn danger" type="button">停止监控</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="stoppedBanner" class="stopped-banner" hidden>
+      <div>
+        <strong>监控服务已停止</strong>
+        <span>训练进程未受影响。需要重新查看时，在服务器上执行
+          <code>python3 -m trainmon agent start</code>，然后刷新本页。</span>
+      </div>
+    </div>
+    <section id="summary" class="summary">
+      <div class="chip"><span class="chip-num" id="countRunning">0</span><span>运行中</span></div>
+      <div class="chip"><span class="chip-num" id="countCompleted">0</span><span>已完成</span></div>
+      <div class="chip"><span class="chip-num" id="countFailed">0</span><span>失败/丢失</span></div>
+      <div class="chip"><span class="chip-num" id="countTotal">0</span><span>总任务</span></div>
+    </section>
+
+    <section id="runs" class="runs"></section>
+    <div id="empty" class="empty" hidden>
+      <div class="empty-icon">◌</div>
+      <h2>还没有训练任务</h2>
+      <p>在训练脚本顶部调用 <code>trainmon.attach(...)</code>，启动后这里会自动出现。</p>
+    </div>
+  </main>
+
+  <div id="detail" class="overlay" hidden>
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <h2 id="detailName">-</h2>
+          <p id="detailMeta" class="muted">-</p>
+        </div>
+        <div class="panel-actions">
+          <span id="detailStatus" class="pill">-</span>
+          <button id="stopAgentDetail" class="btn danger small" type="button">停止监控</button>
+          <button id="detailClose" class="btn ghost" type="button">关闭</button>
+        </div>
+      </div>
+      <div id="etaBanner" class="eta-banner" hidden>
+        <div>
+          <div id="etaBigLabel" class="eta-big-label">剩余</div>
+          <div id="etaBig" class="eta-big">-</div>
+        </div>
+        <div id="etaSub" class="eta-sub">-</div>
+      </div>
+      <div id="detailStats" class="stats"></div>
+      <div id="detailError" class="error-box" hidden></div>
+      <div class="chart-wrap">
+        <div class="chart-title">
+          <span>Loss 曲线</span>
+          <span id="chartHint" class="muted"></span>
+        </div>
+        <canvas id="lossChart" height="240"></canvas>
+      </div>
+      <div class="log-head">
+        <span>日志尾部</span>
+        <span class="log-tools">
+          <a id="downloadLog" class="btn ghost small" href="#" target="_blank">下载完整日志</a>
+          <label class="check"><input id="autoScroll" type="checkbox" checked> 自动滚动</label>
+        </span>
+      </div>
+      <pre id="logTail" class="log"></pre>
+    </div>
+  </div>
+
+  <div id="toasts" class="toasts"></div>
+
+  <script src="/static/app.js?v=20261109"></script>
+</body>
+</html>
